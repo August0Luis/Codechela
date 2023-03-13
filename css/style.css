@@ -970,3 +970,17 @@ form input {
 .ingresso-informacoes {
     margin-left: 48px;
 }
+
+@media  screen and (max-width:1100px) {
+    .confirmacao {
+        width: 100%;
+    }
+
+    .ingresso-informacoes {
+        margin-left: 0;
+    }
+
+    .ingresso-confirmado {
+        flex-direction: column;
+    }
+}

@@ -8,26 +8,6 @@ document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", 
     hamburger.classList.remove("active");
     navMenu.classList.remove("active");
 }))
-// // Configuraçao do formulario
-
-// const botaoEnviar = document.querySelector(".comprar")
-// const nomeDoUsuario = document.querySelector("#capturaNomeDeUsuario")
-
-// botaoEnviar.addEventListener("click", () => {
-//     window.location.href = "confirmacao-ingresso.html";
-
-// })
-
-
-// function redirectToPage() {
-//     var inputValue = document.getElementById("myInput").value;
-//     localStorage.setItem("inputValue", inputValue);
-
-//     window.location.href = "confirmacao-ingresso.html";
-// }
-// var nomeNoIngresso = localStorage.getItem("inputValue");
-// document.getElementById("Nome-ingresso").innerHTML = nomeNoIngresso;
-
 
 function redirectToPage() {
     var nome = document.getElementById("nome").value;
@@ -35,7 +15,33 @@ function redirectToPage() {
     var tipoIngresso = document.getElementById("tipo-ingresso").value;
     var nascimento = document.getElementById("nascimento").value;
 
-    window.location.href = "confirmacao-ingresso.html?nome=" + nome + "&email=" + email + "&tipoIngresso=" + tipoIngresso + "&nascimento=" + nascimento;
+    if (nome === "" || email === "" || nascimento === "") {
+        alert("Por favor, insira os dados nos campos.")
+    }
+    else {
+        validarIdade()
+    }
+
+    function validarIdade() {
+        const resultadoNascimento = new Date(nascimento); // Substitua com a data de nascimento da pessoa
+        const idade = new Date().getFullYear() - resultadoNascimento.getFullYear();
+        if (idade >= 10) {
+            validarEmail()
+        } else {
+            alert("Você precisa ter mais de 10 anos para entrar no evento.")
+        }
+    }
+    
+    function validarEmail() {
+        const regex = /\S+@\S+\.\S+/;
+        const isValid = regex.test(email);
+
+        if (!isValid) {
+            alert("Por favor, insira um endereço de email válido.");
+        } else {
+            window.location.href = "confirmacao-ingresso.html?nome=" + nome + "&email=" + email + "&tipoIngresso=" + tipoIngresso + "&nascimento=" + nascimento;
+        }
+    }
 }
 
 var urlParams = new URLSearchParams(window.location.search);
